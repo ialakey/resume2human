@@ -1,169 +1,187 @@
 # resume2human
 
-Инструмент решает ровно одну задачу: из вашего резюме получить **список вакансий
-с высоким соответствием → 1-3 живых человека на каждую, которым можно написать
-самому**.
+**English** · [Русский](README.ru.md)
 
-Никакой автоматической рассылки, никакого CRM, никаких статусов откликов и ни
-одного API-ключа. Только поиск, скоринг, сохранение и вывод, из которого удобно
-скопировать адрес в письмо, которое вы пишете руками.
+The tool does exactly one thing: turn your resume into **a list of well-matched
+vacancies → 1-3 real people behind each of them, people you can write to
+yourself**.
 
-Приложение работает на вашей машине: окно вместо консоли, данные — в папке
-рядом с exe.
+No automated outreach, no CRM, no application statuses, and not a single API
+key. Just search, scoring, storage and an output you can copy an address out of
+straight into a letter you write by hand.
+
+It runs on your machine: a window instead of a console, and the data in a folder
+next to the exe.
 
 ---
 
-## Скачать
+## Download
 
-Windows 10/11, 64 бита. Python и что-либо ещё ставить не нужно.
+Windows 10/11, 64-bit. You do not need Python or anything else installed.
 
-**→ [resume2human-windows.zip](https://github.com/ialakey/resume2human/releases/download/latest/resume2human-windows.zip)** — всегда последняя сборка.
+**→ [resume2human-windows.zip](https://github.com/ialakey/resume2human/releases/download/latest/resume2human-windows.zip)** — always the latest build.
 
-1. Распакуйте архив **целиком**. Внутри папка, а не один файл: exe без соседних
-   файлов не запустится.
-2. Запустите `JobHunter\JobHunter.exe`.
-3. При первом запуске SmartScreen скажет «Windows защитила ваш компьютер».
-   «Подробнее» → «Выполнить в любом случае». Так будет до тех пор, пока
-   сборка не подписана сертификатом публичного удостоверяющего центра —
-   это платно и на репутацию у SmartScreen нужно время. Если вам важно
-   убедиться, что файл не подменили, сверьте SHA-256 архива с тем, что
-   напечатан в логе сборки на [GitHub Actions](https://github.com/ialakey/job-hunter/actions).
+1. Unpack the **whole** archive. What is inside is a folder, not a single file:
+   the exe will not start without the files next to it.
+2. Run `JobHunter\JobHunter.exe`.
+3. On the first run SmartScreen will say "Windows protected your PC".
+   "More info" → "Run anyway". It will keep doing that until the build is
+   signed by a certificate from a public certificate authority — that costs
+   money, and a reputation with SmartScreen takes time. If you want to be sure
+   the file was not tampered with, compare the archive's SHA-256 with the one
+   printed in the build log on
+   [GitHub Actions](https://github.com/ialakey/job-hunter/actions).
 
-Нумерованные релизы (`v1.2.0`) лежат на [странице релизов](https://github.com/ialakey/resume2human/releases);
-`latest` — это то же самое, но пересобираемое на каждое изменение.
+Numbered releases (`v1.2.0`) live on the
+[releases page](https://github.com/ialakey/resume2human/releases); `latest` is
+the same thing, rebuilt on every change.
 
-Проверить, что сборка живая, не открывая окно:
+To check that a build is alive without opening the window:
 
 ```powershell
-JobHunter.exe --selftest      # результат в data\selftest.log
+JobHunter.exe --selftest      # the verdict lands in data\selftest.log
 ```
 
-## Как пользоваться
+The interface comes up in Russian and switches to English in **⚙ Settings →
+Interface → Interface language**. The window, the settings and the report all
+follow it; no restart needed.
 
-1. **Резюме.** Перетащите файл (PDF, DOCX, TXT, MD, RTF) или вставьте текстом.
-   Можно и просто описать, что ищете: «Senior Java, Kafka, Рига или remote».
-   Приложение сразу показывает, что поняло: стек, грейд, позицию — это стоит
-   проверить глазами, потому что профиль умножается на каждую вакансию в прогоне.
-2. **Параметры поиска.** Ключевые слова, локации, должности, порог совпадения,
-   галочка «Только удалённые вакансии» и выбор источников. Пустое поле =
-   «взять из резюме», все галочки источников = «без ограничения».
-3. **LinkedIn — необязательно.** Кнопка «Войти в LinkedIn» открывает браузер,
-   вы входите сами (со своей 2FA и капчей), приложение забирает готовую сессию.
-   **Пароль нигде не вводится и не хранится.** Без сессии контакты ищутся
-   только по открытым источникам — просто их будет меньше.
-4. **«Найти вакансии».** Прогресс — в строке состояния и на вкладке «Журнал»;
-   «Остановить» прерывает прогон в любой момент.
-5. **Результат** — на вкладке «Вакансии»: таблица с колонками «%», «Вакансия»,
-   «Компания», «Локация», «Люди», «Источник». Любой заголовок сортирует, цвет
-   строки показывает силу совпадения. Под таблицей — карточка выбранной
-   вакансии и три кнопки:
-   * **Открыть вакансию** (или двойной клик по строке);
-   * **Копировать ссылку**;
-   * **Копировать карточку** — процент, что совпало, почему подходит и найденные
-     люди с адресами: готовая заготовка первого письма.
+## How to use it
 
-   Текстовый отчёт по всему прогону — на вкладке «Отчёт» и в `data\reports\*.txt`.
+1. **Resume.** Drop in a file (PDF, DOCX, TXT, MD, RTF) or paste the text. A
+   plain description of what you are after works too: "Senior Java, Kafka, Riga
+   or remote". The app shows what it understood straight away — the stack, the
+   grade, the role — and that is worth a look, because the profile is
+   multiplied by every vacancy in the run.
+2. **Search parameters.** Keywords, locations, job titles, the match threshold,
+   the "Fully remote vacancies only" box and the choice of sources. An empty
+   field means "take it from the resume"; every source ticked means "no
+   restriction".
+3. **LinkedIn — optional.** "Sign in to LinkedIn" opens a browser, you sign in
+   yourself (with your own 2FA and captcha) and the app picks up the finished
+   session. **No password is ever typed into the app or stored by it.** Without
+   a session, contacts are looked for in open sources only — there will simply
+   be fewer of them.
+4. **"Find vacancies".** Progress goes to the status bar and to the "Log" tab;
+   "Stop" interrupts the run at any point.
+5. **The result** is on the "Vacancies" tab: a table with the columns "%",
+   "Vacancy", "Company", "Location", "People" and "Source". Any heading sorts
+   it, and the row colour shows how strong the match is. Under the table is the
+   card for the selected vacancy and three buttons:
+   * **Open the vacancy** (or double-click the row);
+   * **Copy the link**;
+   * **Copy the card** — the percentage, what matched, why it fits and the
+     people found with their addresses: the draft of a first letter.
 
-## Откуда берутся вакансии
+   The text report for the whole run is on the "Report" tab and in
+   `data\reports\*.txt`.
 
-Все источники публичные, опрашиваются параллельно:
+## Where the vacancies come from
 
-* **ATS компаний напрямую** — Greenhouse, Lever, Ashby, Recruitee,
+Every source is public, and they are queried in parallel:
+
+* **company ATS boards directly** — Greenhouse, Lever, Ashby, Recruitee,
   SmartRecruiters, Workable;
-* **агрегаторы удалёнки** — RemoteOK, We Work Remotely, Arbeitnow, Remotive,
-  Jobicy, Working Nomads, Himalayas, The Muse, Empllo, тред «Who is hiring» на
-  Hacker News;
-* **доски одного рынка** — NoFluffJobs (Польша), getmatch, Landing.jobs (ЕС),
-  Djinni и DOU (Украина и remote вокруг неё), Habr Career, GeekJob;
-* **LinkedIn** — вакансии (гостевой доступ) и посты «мы нанимаем» (по вашей
-  сессии);
-* **посты** — публичные Telegram-каналы и threads.com;
-* **веб-поиск** — Bing и DuckDuckGo без ключа, как запасной канал.
+* **remote aggregators** — RemoteOK, We Work Remotely, Arbeitnow, Remotive,
+  Jobicy, Working Nomads, Himalayas, The Muse, Empllo, and the "Who is hiring"
+  thread on Hacker News;
+* **single-market boards** — NoFluffJobs (Poland), getmatch, Landing.jobs (EU),
+  Djinni and DOU (Ukraine and the remote work around it), Habr Career, GeekJob;
+* **LinkedIn** — vacancies (guest access) and "we are hiring" posts (through
+  your session);
+* **posts** — public Telegram channels and threads.com;
+* **web search** — Bing and DuckDuckGo without a key, as a fallback channel.
 
-## Как считается совпадение
+## How the match is calculated
 
-Скоринг детерминированный и объяснимый, без ML и без обращений к чужим моделям.
+The scoring is deterministic and explainable: no ML, and no calls to anybody
+else's model.
 
-* Из резюме собирается профиль: обязательные навыки (`must have`), желательные
-  (`nice to have`), грейд, стаж, домены, локации, стоп-слова.
-* Дешёвый префильтр по пересечению навыков отсекает основную массу вакансий,
-  и только выжившие считаются полностью: **match 0-100**, соответствие грейда,
-  чего не хватает из обязательного, что сработало как стоп-слово, почему
-  вакансия подходит.
-* Половина итогового балла — покрытие обязательных навыков, поэтому их держат
-  короткими: язык и фреймворк, а не весь стек. Всё остальное — в желательные,
-  они добавляют очки, но никогда не блокируют.
-* В отчёте видно и что совпало, и чего не хватило — можно спорить с оценкой,
-  а не принимать её на веру.
+* The resume becomes a profile: must-have skills, nice-to-have skills, grade,
+  years of experience, domains, locations, deal breakers.
+* A cheap prefilter on skill overlap drops the bulk of the vacancies, and only
+  the survivors are scored in full: **match 0-100**, whether the grade fits,
+  what is missing from the must-haves, what tripped a deal breaker, and why the
+  vacancy fits.
+* Half of the final score is must-have coverage, which is why that list is kept
+  short: the language and the framework, not the whole stack. Everything else
+  goes into nice-to-have, where it adds points but never blocks.
+* The report shows both what matched and what was missing — so you can argue
+  with the score instead of taking it on faith.
 
-## Как ищутся люди
+## How the people are found
 
-Для вакансий выше порога инструмент идёт по лестнице и останавливается, как
-только набрал нужное число контактов:
+For every vacancy above the threshold the tool climbs a ladder and stops as
+soon as it has enough contacts:
 
-1. контакты прямо в тексте вакансии;
-2. страницы компании — careers, team, about, people;
-3. профили LinkedIn: роли выбираются **от вакансии** (Engineering Manager,
-   Head of, VP, CTO, рекрутер направления), а не «все подряд»;
-4. веб-поиск как последний ярус.
+1. contacts written into the vacancy text itself;
+2. the company's own pages — careers, team, about, people;
+3. LinkedIn profiles: the roles are chosen **from the vacancy** (Engineering
+   Manager, Head of, VP, CTO, the recruiter for that discipline) rather than
+   "whoever comes up";
+4. web search, as the last rung.
 
-На выходе — имя, роль и адрес. Дальше письмо пишете вы.
+What comes out is a name, a role and an address. The letter is yours to write.
 
-## Что инструмент не делает
+## What the tool does not do
 
-* не рассылает сообщения и откликов за вас не оставляет — и не будет: он
-  доводит до строки «вот человек и вот его адрес», и на этом останавливается;
-* не ведёт статусы откликов и не заменяет CRM;
-* не требует ни одного API-ключа и не отправляет ваше резюме ни в один сервис.
+* it does not send messages and does not apply on your behalf — and it will
+  not: it takes you to the line "here is a person and here is their address",
+  and stops there;
+* it does not track application statuses and is not a CRM;
+* it needs no API key at all, and sends your resume to no service.
 
-## Приватность
+## Privacy
 
-Резюме, профиль, база вакансий и сессия LinkedIn остаются на вашем компьютере —
-в той же папке, куда вы распаковали архив:
+Your resume, your profile, the vacancy database and the LinkedIn session stay
+on your computer — in the same folder you unpacked the archive into:
 
 ```
 JobHunter\
 ├── JobHunter.exe
-├── job_hunter.db          вакансии, вердикты, контакты
-├── profile\search.json    параметры поиска
-├── linkedin_cookies.json  сессия LinkedIn (если вы входили)
+├── job_hunter.db          vacancies, verdicts, contacts
+├── profile\search.json    search parameters
+├── linkedin_cookies.json  the LinkedIn session (if you signed in)
 └── data\
-    ├── reports\*.txt      отчёты по прогонам
-    └── desktop.log        журнал вместо консоли
+    ├── reports\*.txt      one report per run
+    └── desktop.log        the log, in place of a console
 ```
 
-Удалить папку = удалить все данные. Наружу уходят только запросы к самим
-источникам вакансий.
+Delete the folder and you have deleted all of it. The only thing that leaves
+your machine is the requests to the job sources themselves.
 
-Браузер для LinkedIn приложение с собой не носит — это лишние 150 МБ на каждую
-копию. Берётся первый доступный: Chromium от Playwright, если он у вас уже
-скачан, иначе установленный Chrome или Edge, иначе в окне появится кнопка
-«Скачать Chromium».
+The app does not carry a browser for LinkedIn around with it — that would be
+another 150 MB per copy. It takes the first one available: Playwright's
+Chromium if you already have it downloaded, otherwise an installed Chrome or
+Edge, otherwise a "Download Chromium" button appears in the window.
 
-## Ограничения
+## Limitations
 
-* Скоринг — весовой алгоритм по ключевым словам. Он объясним, но не понимает
-  контекст: «Java» в списке требований и «Java» в строчке про легаси для него
-  одно и то же.
-* Веб-поиск — публичный скрейпинг без ключа. При частых прогонах поисковик
-  начинает отдавать капчу; движок тогда ставится на паузу, а запрос уходит
-  следующему. Отчёт пишет об этом отдельным предупреждением, чтобы пустой
-  список людей не читался как «в этих компаниях никого нет».
-* Разбор постов (Telegram, Threads, LinkedIn, Hacker News) эвристический: люди
-  пишут свободным текстом, поэтому название компании иногда угадывается
-  неточно. Если работодатель не назван вовсе, в отчёте стоит автор поста — это
-  честнее выдуманного названия.
-* Поиск по постам LinkedIn требует живой сессии и не умеет фильтровать по
-  географии; без сессии источник молча отдаёт пустой список.
-* Разметка LinkedIn и поисковиков меняется. Все парсеры при поломке отдают
-  пустой результат и пишут предупреждение в журнал, а не роняют прогон.
+* The scoring is a weighted keyword algorithm. It is explainable, but it does
+  not understand context: "Java" in the list of requirements and "Java" in a
+  sentence about legacy code are the same thing to it.
+* Web search is public scraping without a key. Run it often enough and the
+  search engine starts answering with a captcha; the engine is then put on
+  pause and the query goes to the next one. The report says so in its own
+  warning, so that an empty list of people is not read as "there is nobody at
+  these companies".
+* Parsing posts (Telegram, Threads, LinkedIn, Hacker News) is heuristic: people
+  write freehand, so the company name is sometimes guessed wrong. When no
+  employer is named at all, the report shows the author of the post — which is
+  more honest than an invented name.
+* Searching LinkedIn posts needs a live session and cannot filter by geography;
+  without a session the source quietly returns an empty list.
+* LinkedIn's markup, and the search engines', change. Every parser returns an
+  empty result and writes a warning to the log when it breaks, rather than
+  taking the run down with it.
 
-## Исходный код
+## Source code
 
-Этот репозиторий — витрина: README и релизы. Разработка идёт в приватном
-репозитории, каждый сборочный прогон там прогоняет тесты, собирает exe,
-запускает `--selftest` внутри собранного файла и только после этого обновляет
-релиз здесь.
+This repository is the storefront: a README and the releases. Development
+happens in a private repository, where every build run executes the tests,
+builds the exe, runs `--selftest` inside the built file, and only then updates
+the release here.
 
-Вопросы и баг-репорты — в [Issues](https://github.com/ialakey/resume2human/issues).
-К отчёту об ошибке полезно приложить `data\desktop.log`.
+Questions and bug reports go to
+[Issues](https://github.com/ialakey/resume2human/issues). A bug report is much
+more useful with `data\desktop.log` attached.
